@@ -6,4 +6,8 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     public float moveSpeed;
+    public float rotateSmoothing;
+    public int parOfMoneyInView;
+    public float moneyFlySpeed;
+    public float moneyPickupRadius;
 }

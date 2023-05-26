@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Views
@@ -9,7 +10,7 @@ namespace Views
         protected bool IsInteractable
         {
             get { return _isInteractable; }
-            private set
+            set
             {
                 _isInteractable = value;
                 GetComponent<Renderer>().enabled = _isInteractable;
@@ -18,14 +19,15 @@ namespace Views
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (!IsInteractable || !other.CompareTag("Player"))
+            //if (!IsInteractable || !other.CompareTag("Player"))
+            if (!IsInteractable || !other.GetComponent<PlayerView>())
             {
                 return;
             }
-            Interaction();
-            IsInteractable = false;
+            EnterInteraction();
+            //IsInteractable = false;
         }
-        protected abstract void Interaction();
+        protected abstract void EnterInteraction();
         public abstract void Execute();
 
         private void Start()

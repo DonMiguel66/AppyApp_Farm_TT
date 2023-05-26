@@ -42,7 +42,6 @@ public class UIVirtualJoystick : OnScreenControl, IPointerDownHandler, IDragHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Check");
         //new
         transform.position = eventData.position;
         UpdateHandleRectPosition(eventData.position);

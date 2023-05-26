@@ -9,8 +9,6 @@ namespace Views
         [SerializeField] protected Rigidbody _playerRB;
         [SerializeField] protected Collider _playerCollider;
         [SerializeField] protected Animator _animator;
-        [SerializeField] protected AnimatorController _animatorController;
 
-        public abstract void Move();
     }
 }

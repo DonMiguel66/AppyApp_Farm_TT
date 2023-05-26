@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Interfaces;
+using UnityEngine;
 using Views;
 using Object = UnityEngine.Object;
 
@@ -14,7 +15,7 @@ namespace Controllers
         private InteractiveObject _current;
         public ListExecuteObject()
         {
-            var interactiveObjects = Object.FindObjectsOfType<InteractiveObject>();
+            var interactiveObjects = Object.FindObjectsByType<InteractiveObject>(FindObjectsSortMode.None);
             for (var i = 0; i < interactiveObjects.Length; i++)
             {
                 if (interactiveObjects[i] is IExecute interactiveObject)

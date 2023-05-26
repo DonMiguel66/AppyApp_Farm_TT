@@ -6,9 +6,9 @@ namespace Models
     {
         public MainPlayer CurrentPlayer { get; }
 
-        public PlayerProfile(float playerSpeed)
+        public PlayerProfile(float playerSpeed, float rotateSmoothing)
         {
-            CurrentPlayer = new MainPlayer(playerSpeed);
+            CurrentPlayer = new MainPlayer(playerSpeed,rotateSmoothing);
         }
     }
 }

@@ -10,10 +10,7 @@ public class PlayerView : BaseView
 {
     [SerializeField] private PlayerInput _playerInput;
     public Rigidbody PlayerRB => _playerRB;
+    public Animator Animator => _animator;
     public PlayerInput PlayerInput => _playerInput;
 
-    public override void Move()
-    {
-        throw new System.NotImplementedException();
-    }
 }

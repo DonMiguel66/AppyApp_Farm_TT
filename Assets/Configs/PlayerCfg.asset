@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: PlayerCfg
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rotateSmoothing: 1000
+  parOfMoneyInView: 10
+  moneyFlySpeed: 10
+  moneyPickupRadius: 3
