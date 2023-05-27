@@ -13,7 +13,7 @@ namespace Views
             set
             {
                 _isInteractable = value;
-                GetComponent<Renderer>().enabled = _isInteractable;
+                //GetComponent<Renderer>().enabled = _isInteractable;
                 GetComponent<Collider>().enabled = _isInteractable;
             }
         }
@@ -30,7 +30,7 @@ namespace Views
         protected abstract void EnterInteraction();
         public abstract void Execute();
 
-        private void Start()
+        protected virtual void Start()
         {
             IsInteractable = true;
         }

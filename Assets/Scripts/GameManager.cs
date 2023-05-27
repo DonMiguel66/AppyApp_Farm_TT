@@ -14,7 +14,9 @@ public class GameManager : MonoBehaviour, IDisposable
     private AnimationController _playerAnimatorController;
     private NavMeshController _navMeshController;
     private MoneyController _moneyController;
+    private GardenBedsController _gardenBedsController;
     private List<MoneyView> _moneyViews = new List<MoneyView>();
+    private List<GardenBedView> _gardenBedViews = new List<GardenBedView>();
     
     [SerializeField]private PlayerView _playerView;
     //изменить на отдельный класс кроликов
@@ -34,11 +36,13 @@ public class GameManager : MonoBehaviour, IDisposable
         _playerAnimatorController = new AnimationController(_playerView);
         _navMeshController = new NavMeshController(_navMeshAgents,_patrolzone);
         _moneyController = new MoneyController(_playerConfig, _moneyViews);
+        _gardenBedsController = new GardenBedsController(_gardenBedViews);
     }
     void Start()
     {
     }
-    void Update()
+
+    private void Update()
     {
         _inputController?.Execute();
         _cameraController?.Execute();
@@ -55,9 +59,15 @@ public class GameManager : MonoBehaviour, IDisposable
     {
         foreach (var o in _interactiveObject)
         {
-            if (o is MoneyView moneyView)
+            switch (o)
             {
-                _moneyViews.Add(moneyView);
+                case MoneyView moneyView:
+                    _moneyViews.Add(moneyView);
+                    break;
+                case GardenBedView gardenBedView:
+                    _gardenBedViews.Add(gardenBedView);
+                    gardenBedView.OnGardenBedStay += _moneyController.SpendMoney;
+                    break;
             }
         }
     }
@@ -65,6 +75,16 @@ public class GameManager : MonoBehaviour, IDisposable
     {
         foreach (var o in _interactiveObject)
         {
+            switch (o)
+            {
+                case MoneyView moneyView:
+                    _moneyViews.Add(moneyView);
+                    break;
+                case GardenBedView gardenBedView:
+                    _gardenBedViews.Add(gardenBedView);
+                    gardenBedView.OnGardenBedStay -= _moneyController.SpendMoney;
+                    break;
+            }
             if (o is InteractiveObject interactiveObject)
             {
                 Destroy(interactiveObject.gameObject);

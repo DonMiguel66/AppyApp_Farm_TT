@@ -19,6 +19,5 @@ namespace Controllers
         {
             _mainCamera.position = _player.position + _offset;
         }
-
     }
 }

@@ -1,44 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Views
 {
     public class MoneyHolderView : InteractiveZones
     {
-        private List<MoneyView> _currentMoneyViewsInHolder;
-        private float _moneyPickupRadius;
+
+        public event Action<PlayerView> OnMoneyPickup;
         
-        public void Init(float moneyPickupRadius, List<MoneyView> currentMoneyViewsInHolder)
-        {
-            _moneyPickupRadius = moneyPickupRadius;
-            _currentMoneyViewsInHolder = currentMoneyViewsInHolder;
-        }
         protected override void EnterInteraction()
         {
-           Debug.Log("Enter");
+            OnMoneyPickup?.Invoke(ContactPlayerView);
         }
 
         protected override void StayInteraction()
         {
-            foreach (var moneyView in _currentMoneyViewsInHolder)
-            {
-                if ((PlayerTransform.position - moneyView.transform.position).magnitude < _moneyPickupRadius)
-                {
-                    Debug.Log(PlayerTransform.name);
-                    moneyView.MoveTo(PlayerTransform);
-                }
-            }
+            OnMoneyPickup?.Invoke(ContactPlayerView);
         }
 
-        /*private void OnTriggerStay(Collider other)
+        protected override void ExitInteraction()
         {
-            //if (!IsInteractable || !other.CompareTag("Player"))
-            if (!IsInteractable || !other.GetComponent<PlayerView>())
-            {
-                return;
-            }
-            StayInteraction();
-        }*/
+            OnMoneyPickup?.Invoke(ContactPlayerView);
+        }
     }
 }

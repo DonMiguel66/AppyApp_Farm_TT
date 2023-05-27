@@ -33,18 +33,22 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IAction.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInteractable.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListExecuteObject.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/CameraController.cs" />
       <option value="$PROJECT_DIR$/Assets/StarterAssets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInitialisable.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInitializable.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMoney.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyHolderView.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Configs/PlayerConfig.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedscontroller.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedsController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/CameraController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Models/MoneyHolder.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyHolderView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/MoneyController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/GardenBedView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2QJyQFHn4iH4rJBVPFz0J4MjAgl" />
@@ -105,6 +109,16 @@
       <workItem from="1685109994568" duration="1776000" />
       <workItem from="1685111815262" duration="1177000" />
       <workItem from="1685113183980" duration="388000" />
+      <workItem from="1685177370267" duration="1764000" />
+      <workItem from="1685179180234" duration="1777000" />
+      <workItem from="1685180991787" duration="1465000" />
+      <workItem from="1685182745265" duration="1329000" />
+      <workItem from="1685184398031" duration="726000" />
+      <workItem from="1685193369023" duration="425000" />
+      <workItem from="1685193863536" duration="1244000" />
+      <workItem from="1685195140533" duration="1774000" />
+      <workItem from="1685196952607" duration="1599000" />
+      <workItem from="1685198584011" duration="1027000" />
     </task>
     <servers />
   </component>
