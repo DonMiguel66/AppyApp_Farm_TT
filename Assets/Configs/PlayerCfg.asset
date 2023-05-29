@@ -15,5 +15,6 @@ MonoBehaviour:
   moveSpeed: 5
   rotateSmoothing: 1000
   parOfMoneyInView: 10
-  moneyFlySpeed: 10
+  moneyMoveSpeed: 10
+  moneyScaleChangeSpeed: 15
   moneyPickupRadius: 3

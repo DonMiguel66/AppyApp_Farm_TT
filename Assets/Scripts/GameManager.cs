@@ -8,7 +8,8 @@ using Views;
 
 public class GameManager : MonoBehaviour, IDisposable
 {
-    private ListExecuteObject _interactiveObject;
+    private ListInteractableObjects _interactableObject;
+    private ListExecuteObject _listExecuteObject;
     private InputController _inputController;
     private CameraController _cameraController;
     private AnimationController _playerAnimatorController;
@@ -28,15 +29,16 @@ public class GameManager : MonoBehaviour, IDisposable
 
     private void Awake()
     {
-        _interactiveObject = new ListExecuteObject();
-        AddCustomInteractiveObjectsToLists();
+        _interactableObject = new ListInteractableObjects();
+        _listExecuteObject = new ListExecuteObject();
         _playerProfile = new PlayerProfile(_playerConfig.moveSpeed, _playerConfig.rotateSmoothing);
         _inputController = new InputController(_playerView, _playerProfile);
         _cameraController = new CameraController(_playerView.transform, _mainPivotCamera.transform);
         _playerAnimatorController = new AnimationController(_playerView);
         _navMeshController = new NavMeshController(_navMeshAgents,_patrolzone);
-        _moneyController = new MoneyController(_playerConfig, _moneyViews);
-        _gardenBedsController = new GardenBedsController(_gardenBedViews);
+        _moneyController = new MoneyController(_playerConfig, _listExecuteObject);
+        _gardenBedsController = new GardenBedsController(_interactableObject);
+        SubscribeInteractiveObjects();
     }
     void Start()
     {
@@ -48,16 +50,16 @@ public class GameManager : MonoBehaviour, IDisposable
         _cameraController?.Execute();
         _playerAnimatorController?.Execute();
         _navMeshController?.Execute();
-        for (var i = 0; i < _interactiveObject.Length; i++)
+        for (var i = 0; i < _listExecuteObject.Length; i++)
         {
-            var interactiveObject = _interactiveObject[i];
-            interactiveObject?.Execute();
+            var executedObject = _listExecuteObject[i];
+            executedObject?.Execute();
         }
     }
 
-    private void AddCustomInteractiveObjectsToLists()
+    /*private void AddCustomInteractiveObjectsToLists()
     {
-        foreach (var o in _interactiveObject)
+        foreach (var o in _interactableObject)
         {
             switch (o)
             {
@@ -66,23 +68,40 @@ public class GameManager : MonoBehaviour, IDisposable
                     break;
                 case GardenBedView gardenBedView:
                     _gardenBedViews.Add(gardenBedView);
-                    gardenBedView.OnGardenBedStay += _moneyController.SpendMoney;
+                    break;
+            }
+        }
+    }*/
+
+    private void SubscribeInteractiveObjects()
+    {
+        foreach (var o in _interactableObject)
+        {
+            switch (o)
+            {
+                case MoneyView moneyView:
+                    break;
+                case GardenBedView gardenBedView:
+                    //gardenBedView.OnGardenBedStay += _moneyController.SpendMoney;
+                    gardenBedView.OnGardenBedStayAsync += (async (transform1, transform2, arg3, arg4) =>
+                    {
+                        await _moneyController.Test(transform1, transform2, arg3, arg4);
+                    });
                     break;
             }
         }
     }
+    
     public void Dispose()
     {
-        foreach (var o in _interactiveObject)
+        foreach (var o in _interactableObject)
         {
             switch (o)
             {
                 case MoneyView moneyView:
-                    _moneyViews.Add(moneyView);
                     break;
                 case GardenBedView gardenBedView:
-                    _gardenBedViews.Add(gardenBedView);
-                    gardenBedView.OnGardenBedStay -= _moneyController.SpendMoney;
+                    //gardenBedView.OnGardenBedStay -= _moneyController.SpendMoney;
                     break;
             }
             if (o is InteractiveObject interactiveObject)

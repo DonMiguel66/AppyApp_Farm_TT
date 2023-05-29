@@ -1,14 +1,15 @@
 ﻿using System;
+using Interfaces;
 using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Views
 {
-    public abstract class InteractiveZones: MonoBehaviour
+    public abstract class InteractiveZones: InteractiveObject, IInteractable
     {
-        private bool _isInteractable;
+        //private bool _isInteractable;
         private PlayerView _contactPlayerTransform;
-        protected bool IsInteractable
+        /*protected bool IsInteractable
         {
             get { return _isInteractable; }
             set
@@ -16,13 +17,12 @@ namespace Views
                 _isInteractable = value;
                 GetComponent<Collider>().enabled = _isInteractable;
             }
-        }
+        }*/
 
-        public PlayerView ContactPlayerView => _contactPlayerTransform;
+        protected PlayerView ContactPlayerView => _contactPlayerTransform;
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            //if (!IsInteractable || !other.CompareTag("Player"))
             if (!IsInteractable || !other.GetComponent<PlayerView>())
             {
                 return;
@@ -34,7 +34,6 @@ namespace Views
         
         private void OnTriggerStay(Collider other)
         {
-            //if (!IsInteractable || !other.CompareTag("Player"))
             if (!IsInteractable || !other.GetComponent<PlayerView>())
             {
                 return;
@@ -53,13 +52,14 @@ namespace Views
             ExitInteraction();
         }
 
-        protected abstract void EnterInteraction();
+        //protected abstract void EnterInteraction();
         protected abstract void StayInteraction();
         protected abstract void ExitInteraction();
 
+        /*
         private void Start()
         {
             IsInteractable = true;
-        }
+        }*/
     }
 }

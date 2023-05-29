@@ -1,43 +1,75 @@
 ﻿using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Interfaces;
 using UnityEngine;
-using static UnityEngine.Random;
 
 namespace Views
 {
-    public class MoneyView : InteractiveObject, IMoney
+    public class MoneyView : InteractiveObject, IMoney, IExecute
     {
         private int _moneyCount;
-        private float _moneyFlySpeed;
+        private float _moneyMoveSpeed;
+        private float _moneyScaleChangeSpeed;
         private float _lengthFly;
+        [SerializeField]private Vector3 _defaultScale;
         public event Action<int, MoneyView> OnMoneyClaim;
+
+        public bool isMovable;
+        [SerializeField]private GameObject _targetToMove;
+
+        public GameObject TargetToMove
+        {
+            get => _targetToMove;
+            set => _targetToMove = value;
+        }
+
+        public Vector3 DefaultScale => _defaultScale;
+
+        public float MoneyMoveSpeed
+        {
+            get => _moneyMoveSpeed;
+            set => _moneyMoveSpeed = value;
+        }
+
+        public float MoneyScaleChangeSpeed
+        {
+            get => _moneyScaleChangeSpeed;
+            set => _moneyScaleChangeSpeed = value;
+        }
+
         private void Awake()
         {
             //_lengthFly = Range(1.0f, 1.5f);
             _lengthFly = 0.75f;
+            _defaultScale = transform.localScale;
         }
 
-        public void Init(int moneyCount, float moneyFlySpeed)
+        protected override void OnTriggerEnter(Collider other)
+        {
+            base.OnTriggerEnter(other);
+            
+        }
+
+        public void Init(int moneyCount, float moneyMoveSpeed,float moneyScaleChangeSpeed)
         {
             _moneyCount = moneyCount;
-            _moneyFlySpeed = moneyFlySpeed;
+            _moneyMoveSpeed = moneyMoveSpeed;
+            _moneyScaleChangeSpeed = moneyScaleChangeSpeed;
         }
         
         protected override void EnterInteraction()
-        {
+        {/*
             IsInteractable = false;
             OnMoneyClaim?.Invoke(_moneyCount, this);
-            Debug.Log("Ch");
-            transform.DOScale(new Vector3(0f, 0f, 0f), 0.1f).OnComplete(() => Destroy(gameObject));
+            Debug.Log($"{transform.position}"); */
         }
 
-        public override void Execute()
+        public void Execute()
         {
             if(!IsInteractable){return;}
             Fly();
+            if(!_targetToMove) return;
+            Move();
         }
 
         private void Fly()
@@ -48,23 +80,63 @@ namespace Views
             transform.localPosition = localPosition;
         }
 
-        public void MoveTo(Transform target)
+        private void Move()
         {
-            transform.LookAt(target);
-            transform.Translate((target.position - transform.position)*_moneyFlySpeed* Time.deltaTime, Space.World);
+            if (!isMovable) return;
+            if(DistanceToTargetCheck())
+            {
+                transform.LookAt(_targetToMove.transform);
+                var targetTransform = _targetToMove.transform;
+                Vector3 newPos = new Vector3(targetTransform.position.x, targetTransform.position.y + 10f,
+                    targetTransform.position.z);
+                transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * _moneyMoveSpeed);
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero,
+                    Time.deltaTime * _moneyScaleChangeSpeed);
+            }
+            else
+            {
+                isMovable = false;
+                if(_targetToMove.GetComponent<PlayerView>())
+                    OnMoneyClaim?.Invoke(_moneyCount, this);
+                else
+                {
+                    Debug.Log("Spend");
+                    OnMoneyClaim?.Invoke(-_moneyCount, this);
+                }
+            }
         }
 
-        public async void MoveToAsync(PlayerView playerView)
+        private bool DistanceToTargetCheck()
         {
-            await MoveTo(playerView);
+            var distance = Vector3.Distance(transform.position, _targetToMove.transform.position);
+            return !(distance <= 0.5f);
         }
         
-        private async UniTask MoveTo(PlayerView playerView)
+        /*public void MoveTo(Transform target)
         {
-            transform.LookAt(playerView.transform);
-            Vector3 newPos = new Vector3(playerView.transform.position.x, playerView.transform.position.y + 10f, playerView.transform.position.z);
-            transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * 10);
+            transform.LookAt(target);
+            transform.Translate((target.position - transform.position)*_moneyMoveSpeed* Time.deltaTime, Space.World);
+        }*/
+
+        public async void MoveToAsync(Transform target)
+        {
+            await MoveTo(target);
+        }
+        
+        private async UniTask MoveTo (Transform target)
+        {
+            transform.LookAt(target.transform);
+            var targetTransform = target.transform;
+            Vector3 newPos = new Vector3(targetTransform.position.x, targetTransform.position.y + targetTransform.lossyScale.y/2, targetTransform.position.z);
+            transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * _moneyMoveSpeed);
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * _moneyScaleChangeSpeed);
             await UniTask.CompletedTask;
+        }
+
+        private void OnDestroy()
+        {
+            isMovable = false;
+            _targetToMove = null;
         }
     }
 }

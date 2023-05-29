@@ -1,15 +1,14 @@
-﻿using System;
-using Interfaces;
+﻿using Interfaces;
 using UnityEngine;
 
 namespace Views
 {
-    public abstract class InteractiveObject: MonoBehaviour, IExecute
+    public abstract class InteractiveObject: MonoBehaviour
     {
         private bool _isInteractable;
-        protected bool IsInteractable
+        public bool IsInteractable
         {
-            get { return _isInteractable; }
+            get => _isInteractable;
             set
             {
                 _isInteractable = value;
@@ -17,22 +16,22 @@ namespace Views
                 GetComponent<Collider>().enabled = _isInteractable;
             }
         }
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             //if (!IsInteractable || !other.CompareTag("Player"))
-            if (!IsInteractable || !other.GetComponent<PlayerView>())
+            if (!_isInteractable)
             {
                 return;
             }
             EnterInteraction();
             //IsInteractable = false;
         }
+        
         protected abstract void EnterInteraction();
-        public abstract void Execute();
 
         protected virtual void Start()
         {
-            IsInteractable = true;
+            _isInteractable = true;
         }
     }
 }

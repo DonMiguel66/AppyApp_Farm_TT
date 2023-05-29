@@ -1,59 +1,42 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
 using Interfaces;
 using UnityEngine;
 using Views;
 using Object = UnityEngine.Object;
 
-
 namespace Controllers
 {
-    public sealed class ListExecuteObject: IEnumerator, IEnumerable
+    public class ListInteractableObjects: IEnumerator, IEnumerable
     {
-        private IExecute[] _interactiveObjects;
+        private IInteractable[] _interactiveObjects;
         private int _index = -1;
         private InteractiveObject _current;
-        public ListExecuteObject()
+        
+        public ListInteractableObjects()
         {
             var interactiveObjects = Object.FindObjectsByType<InteractiveObject>(FindObjectsSortMode.None);
             for (var i = 0; i < interactiveObjects.Length; i++)
             {
-                if (interactiveObjects[i] is IExecute interactiveObject)
+                if (interactiveObjects[i] is IInteractable interactiveObject)
                 {
                     AddExecuteObject(interactiveObject);
                 }
             }
         }
         
-        public void AddExecuteObject(IExecute execute)
-        {;
+        public void AddExecuteObject(IInteractable execute)
+        {
             if (_interactiveObjects == null)
             {
                 _interactiveObjects = new[] {execute};
                 return;
             }
-
-            if (_interactiveObjects.Any(ex => ex == execute)) return;
             Array.Resize(ref _interactiveObjects, Length + 1);
-            _interactiveObjects[Length - 1] = execute;
-        }
-
-        public void RemoveExecuteObject(IExecute execute)
-        {
-            if(_interactiveObjects == null)
-                return;
-            if(_interactiveObjects.Any(ex => ex == execute)) return;
-            Debug.Log("RR");
-            var curIndex = Array.IndexOf(_interactiveObjects, execute);
-            for (int i = curIndex; i < _interactiveObjects.Length-1; i++)
-            {
-                _interactiveObjects[i] = _interactiveObjects[i + 1];
-            }
-            Array.Resize(ref _interactiveObjects, Length-1);
+            _interactiveObjects[Length-1] = execute;
         }
         
-        public IExecute this [int index]
+        public IInteractable this [int index]
         {
             get => _interactiveObjects[index];
             private set => _interactiveObjects[index] = value;
@@ -82,6 +65,5 @@ namespace Controllers
         {
             return GetEnumerator();
         }
-
     }
 }

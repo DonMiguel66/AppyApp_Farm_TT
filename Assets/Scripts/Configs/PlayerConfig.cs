@@ -8,6 +8,7 @@ public class PlayerConfig : ScriptableObject
     public float moveSpeed;
     public float rotateSmoothing;
     public int parOfMoneyInView;
-    public float moneyFlySpeed;
+    public float moneyMoveSpeed;
+    public float moneyScaleChangeSpeed;
     public float moneyPickupRadius;
 }
