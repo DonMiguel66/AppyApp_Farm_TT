@@ -18,3 +18,6 @@ MonoBehaviour:
   moneyMoveSpeed: 10
   moneyScaleChangeSpeed: 15
   moneyPickupRadius: 3
+  _plantGrowthTime: 5
+  _plantBuiltCost: 10
+  neededAviaryPlantsCount: 4

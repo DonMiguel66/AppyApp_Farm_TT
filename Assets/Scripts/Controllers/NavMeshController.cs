@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -21,12 +20,12 @@ namespace Controllers
             _navMeshAgents = navMeshAgents;
             _patrolZoneCenter = patrolZoneCenter;
             _navMeshPath = new NavMeshPath();
-            //NavRandomPoint(_navMeshAgent);
             foreach (var navMeshAgent in navMeshAgents)
             {
                 NavRandomPoint(navMeshAgent);
             }
         }
+        
         public void Execute()
         {
             foreach (var navMeshAgent in _navMeshAgents)
@@ -57,7 +56,6 @@ namespace Controllers
                 if (_navMeshPath.status == NavMeshPathStatus.PathComplete) getCorrectPoint = true;
 
             }
-            //Debug.DrawLine(_navMeshAgent.transform.position, randomPoint, Color.red);
             navMeshAgent.SetDestination(randomPoint);
         }
     }

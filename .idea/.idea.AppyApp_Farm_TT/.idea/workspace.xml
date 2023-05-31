@@ -4,7 +4,64 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf696117-0859-443d-9b3a-0dc159830e28" name="Default Changelist" comment="" />
+    <list default="true" id="bf696117-0859-443d-9b3a-0dc159830e28" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/AviaryController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/AviaryController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/PlantsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/PlantsController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/AviaryModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Models/AviaryModel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/AviaryView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/AviaryView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/CarrotView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/CarrotView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/ClaimableObject.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/ClaimableObject.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/PlaceToHold.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/PlaceToHold.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/UIView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Views/UIView.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.AppyApp_Farm_TT/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AppyApp_Farm_TT/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/PlayerCfg.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/PlayerCfg.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Configs/PlayerConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Configs/PlayerConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedsController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/ListExecuteObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/ListExecuteObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/MoneyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/MoneyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/NavMeshController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Controllers/NavMeshController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/PlayerController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Controllers/PlayerController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IReadOnlySubscriptionAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IReadOnlySubscriptionAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IReadonlySubscriptionProperty.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IReadonlySubscriptionProperty.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Models/PlayerProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Models/PlayerProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tools/SubscriptionAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tools/SubscriptionAction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tools/SubscriptionProperty.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tools/SubscriptionProperty.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/BaseView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/BaseView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/GardenBedView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/GardenBedView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Views/PlayerView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Views/PlayerView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Roboto-Bold SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,17 +78,14 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.5.1/InputSystem/Devices/InputDevice.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/Models/MainPlayer.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Models/PlayerProfile.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/InputController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/PlayerView.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/BaseView.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/NavMeshController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IAction.cs" />
-      <option value="$PROJECT_DIR$/Assets/StarterAssets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInitialisable.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInitializable.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedscontroller.cs" />
@@ -39,20 +93,40 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Models/MoneyHolder.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListInteractableObject.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMoney.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Configs/PlayerConfig.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListInteracableObjects.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListInteractableObjects.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IInteractable.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyHolderView.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Tools/ObjectPool.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedsController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/GardenBedView.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListInteractableObjects.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/ListExecuteObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/RabbitAviaryView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/RabbitAviaryController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/PlantController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Configs/PlayerConfig.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Models/AviaryModel.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/AviaryController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/ClaimableObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/PlaceToHoldPlant.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/AviaryView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/GardenBedsController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/StartGame.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/UIView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Tools/StartGame.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/UIController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/BaseView.cs" />
+      <option value="$PROJECT_DIR$/Assets/StarterAssets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/AnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/MoneyController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/NavMeshController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Controllers/PlantsController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Models/PlayerProfile.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/CarrotView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/GardenBedView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/InteractiveZones.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/MoneyView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Views/PlayerView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2QJyQFHn4iH4rJBVPFz0J4MjAgl" />
@@ -66,9 +140,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/../../TestBuilds/AppyApp\AppyApp_TT.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="G:\TestBuilds\AppyApp" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
@@ -141,6 +227,10 @@
       <workItem from="1685369578502" duration="1898000" />
       <workItem from="1685371517770" duration="1774000" />
       <workItem from="1685373329105" duration="320000" />
+      <workItem from="1685375202867" duration="10365000" />
+      <workItem from="1685413746386" duration="24507000" />
+      <workItem from="1685440989289" duration="14843000" />
+      <workItem from="1685501421890" duration="12767000" />
     </task>
     <servers />
   </component>
@@ -149,6 +239,18 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

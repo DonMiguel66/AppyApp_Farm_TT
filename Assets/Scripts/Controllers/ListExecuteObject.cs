@@ -16,25 +16,26 @@ namespace Controllers
         private InteractiveObject _current;
         public ListExecuteObject()
         {
-            var interactiveObjects = Object.FindObjectsByType<InteractiveObject>(FindObjectsSortMode.None);
+            var interactiveObjects = Object.FindObjectsByType<ClaimableObject>(FindObjectsSortMode.None);
             for (var i = 0; i < interactiveObjects.Length; i++)
             {
                 if (interactiveObjects[i] is IExecute interactiveObject)
                 {
+                    //Debug.Log($"{interactiveObjects[i].name}");
                     AddExecuteObject(interactiveObject);
                 }
             }
         }
         
         public void AddExecuteObject(IExecute execute)
-        {;
+        {
             if (_interactiveObjects == null)
             {
                 _interactiveObjects = new[] {execute};
                 return;
             }
 
-            if (_interactiveObjects.Any(ex => ex == execute)) return;
+            //if (_interactiveObjects.Any(ex => ex == execute)) return;
             Array.Resize(ref _interactiveObjects, Length + 1);
             _interactiveObjects[Length - 1] = execute;
         }

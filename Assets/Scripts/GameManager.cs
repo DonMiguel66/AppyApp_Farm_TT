@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Controllers;
 using Models;
 using UnityEngine;
-using UnityEngine.AI;
 using Views;
 
 public class GameManager : MonoBehaviour, IDisposable
@@ -13,17 +12,18 @@ public class GameManager : MonoBehaviour, IDisposable
     private InputController _inputController;
     private CameraController _cameraController;
     private AnimationController _playerAnimatorController;
-    private NavMeshController _navMeshController;
+    private AviaryController _aviaryController;
     private MoneyController _moneyController;
     private GardenBedsController _gardenBedsController;
+    private PlantsController _plantsController;
+    private UIController _uiController;
     private List<MoneyView> _moneyViews = new List<MoneyView>();
     private List<GardenBedView> _gardenBedViews = new List<GardenBedView>();
     
-    [SerializeField]private PlayerView _playerView;
-    //изменить на отдельный класс кроликов
-    [SerializeField] private List<NavMeshAgent> _navMeshAgents;
-    [SerializeField] private Transform _patrolzone;
     private PlayerProfile _playerProfile;
+    
+    [SerializeField] private PlayerView _playerView;
+    [SerializeField] private UIView _uiView;
     [SerializeField] private PlayerConfig _playerConfig;
     [SerializeField] private Transform _mainPivotCamera;
 
@@ -35,13 +35,20 @@ public class GameManager : MonoBehaviour, IDisposable
         _inputController = new InputController(_playerView, _playerProfile);
         _cameraController = new CameraController(_playerView.transform, _mainPivotCamera.transform);
         _playerAnimatorController = new AnimationController(_playerView);
-        _navMeshController = new NavMeshController(_navMeshAgents,_patrolzone);
+        _aviaryController = new AviaryController(_playerConfig);
         _moneyController = new MoneyController(_playerConfig, _listExecuteObject);
-        _gardenBedsController = new GardenBedsController(_interactableObject);
-        SubscribeInteractiveObjects();
+        _plantsController = new PlantsController(_playerView, _aviaryController);
+        _gardenBedsController = new GardenBedsController(_playerConfig,_interactableObject, _listExecuteObject,_plantsController);
+        
+        _uiController = new UIController(_uiView);
     }
     void Start()
     {
+        SubscribeInteractiveObjects();
+        SubscribeExecutableObjects();
+        _moneyController.OnPlayerMoneyCountChange += _uiController.ChangeUI;
+        _gardenBedsController.OnPlantTakenByPlayer += _plantsController.AddPlant;
+        _uiController.LoadGame();
     }
 
     private void Update()
@@ -49,7 +56,7 @@ public class GameManager : MonoBehaviour, IDisposable
         _inputController?.Execute();
         _cameraController?.Execute();
         _playerAnimatorController?.Execute();
-        _navMeshController?.Execute();
+        _aviaryController?.Execute();
         for (var i = 0; i < _listExecuteObject.Length; i++)
         {
             var executedObject = _listExecuteObject[i];
@@ -57,37 +64,37 @@ public class GameManager : MonoBehaviour, IDisposable
         }
     }
 
-    /*private void AddCustomInteractiveObjectsToLists()
-    {
-        foreach (var o in _interactableObject)
-        {
-            switch (o)
-            {
-                case MoneyView moneyView:
-                    _moneyViews.Add(moneyView);
-                    break;
-                case GardenBedView gardenBedView:
-                    _gardenBedViews.Add(gardenBedView);
-                    break;
-            }
-        }
-    }*/
-
     private void SubscribeInteractiveObjects()
     {
         foreach (var o in _interactableObject)
         {
-            switch (o)
+            if (o is GardenBedView gardenBedView)
             {
-                case MoneyView moneyView:
-                    break;
-                case GardenBedView gardenBedView:
-                    //gardenBedView.OnGardenBedStay += _moneyController.SpendMoney;
-                    gardenBedView.OnGardenBedStayAsync += (async (transform1, transform2, arg3, arg4) =>
-                    {
-                        await _moneyController.Test(transform1, transform2, arg3, arg4);
-                    });
-                    break;
+                gardenBedView.OnBuyingStateChange += _moneyController.IsBuying;
+                gardenBedView.OnGardenBedEnter += _moneyController.SpendMoney;
+            }
+            if (o is AviaryView rabbitAviaryView)
+            {
+                rabbitAviaryView.OnBuyingStateChange += _moneyController.IsBuying;
+                rabbitAviaryView.OnAviaryBuildEnter += _moneyController.SpendMoney;
+                rabbitAviaryView.OnAviaryFeedEnter += _plantsController.PlantToAviary;
+            }
+        }
+
+    }
+
+    private void SubscribeExecutableObjects()
+    {
+        for (var i = 0; i < _listExecuteObject.Length; i++)
+        {
+            if (_listExecuteObject[i] is MoneyView moneyView)
+            {
+                moneyView.OnMoneyPayForGarden += _gardenBedsController.CheckMoneyToBuild;
+                moneyView.OnMoneyPayForAviary += _aviaryController.CheckMoneyToBuild;
+            }
+            if (_listExecuteObject[i] is CarrotView carrotView)
+            {
+                carrotView.OnFeeding += _aviaryController.CheckCarrotToFeed;
             }
         }
     }
@@ -96,14 +103,6 @@ public class GameManager : MonoBehaviour, IDisposable
     {
         foreach (var o in _interactableObject)
         {
-            switch (o)
-            {
-                case MoneyView moneyView:
-                    break;
-                case GardenBedView gardenBedView:
-                    //gardenBedView.OnGardenBedStay -= _moneyController.SpendMoney;
-                    break;
-            }
             if (o is InteractiveObject interactiveObject)
             {
                 Destroy(interactiveObject.gameObject);

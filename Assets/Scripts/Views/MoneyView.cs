@@ -1,138 +1,80 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Interfaces;
 using UnityEngine;
 
 namespace Views
 {
-    public class MoneyView : InteractiveObject, IMoney, IExecute
+    public class MoneyView : ClaimableObject, IMoney, IExecute
     {
-        private int _moneyCount;
-        private float _moneyMoveSpeed;
-        private float _moneyScaleChangeSpeed;
-        private float _lengthFly;
-        [SerializeField]private Vector3 _defaultScale;
+        private int _parOfMoney;
         public event Action<int, MoneyView> OnMoneyClaim;
+        public event Action<int, GardenBedView> OnMoneyPayForGarden;
+        public event Action<int, AviaryView> OnMoneyPayForAviary;
 
-        public bool isMovable;
-        [SerializeField]private GameObject _targetToMove;
-
-        public GameObject TargetToMove
-        {
-            get => _targetToMove;
-            set => _targetToMove = value;
-        }
-
-        public Vector3 DefaultScale => _defaultScale;
-
-        public float MoneyMoveSpeed
-        {
-            get => _moneyMoveSpeed;
-            set => _moneyMoveSpeed = value;
-        }
-
-        public float MoneyScaleChangeSpeed
-        {
-            get => _moneyScaleChangeSpeed;
-            set => _moneyScaleChangeSpeed = value;
-        }
-
-        private void Awake()
-        {
-            //_lengthFly = Range(1.0f, 1.5f);
-            _lengthFly = 0.75f;
-            _defaultScale = transform.localScale;
-        }
-
-        protected override void OnTriggerEnter(Collider other)
-        {
-            base.OnTriggerEnter(other);
-            
-        }
+        public event Action OnLostTarget;
 
         public void Init(int moneyCount, float moneyMoveSpeed,float moneyScaleChangeSpeed)
         {
-            _moneyCount = moneyCount;
-            _moneyMoveSpeed = moneyMoveSpeed;
-            _moneyScaleChangeSpeed = moneyScaleChangeSpeed;
-        }
-        
-        protected override void EnterInteraction()
-        {/*
-            IsInteractable = false;
-            OnMoneyClaim?.Invoke(_moneyCount, this);
-            Debug.Log($"{transform.position}"); */
+            _parOfMoney = moneyCount;
+            _objMoveSpeed = moneyMoveSpeed;
+            _objScaleChangeSpeed = moneyScaleChangeSpeed;
         }
 
         public void Execute()
         {
-            if(!IsInteractable){return;}
-            Fly();
-            if(!_targetToMove) return;
+            if(!_targetToMove)
+            {
+                return;
+            }
             Move();
         }
 
-        private void Fly()
+        protected override void Move()
         {
-            var localPosition = transform.localPosition;
-            localPosition = new Vector3(localPosition.x, Mathf.PingPong(Time.time, _lengthFly),
-                localPosition.z);
-            transform.localPosition = localPosition;
-        }
-
-        private void Move()
-        {
-            if (!isMovable) return;
+            if (!isMovable)
+            {
+                return;
+            }
             if(DistanceToTargetCheck())
             {
                 transform.LookAt(_targetToMove.transform);
                 var targetTransform = _targetToMove.transform;
-                Vector3 newPos = new Vector3(targetTransform.position.x, targetTransform.position.y + 10f,
-                    targetTransform.position.z);
-                transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * _moneyMoveSpeed);
-                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero,
-                    Time.deltaTime * _moneyScaleChangeSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, targetTransform.position,
+                    _objMoveSpeed * Time.deltaTime);
+                transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.1f,0.1f,0.1f),
+                    Time.deltaTime * _objScaleChangeSpeed);
             }
             else
             {
                 isMovable = false;
-                if(_targetToMove.GetComponent<PlayerView>())
-                    OnMoneyClaim?.Invoke(_moneyCount, this);
+                if(_targetToMove.GetComponent<PlaceToHold>())
+                {
+                    OnMoneyClaim?.Invoke(_parOfMoney, this);
+                }
                 else
                 {
-                    Debug.Log("Spend");
-                    OnMoneyClaim?.Invoke(-_moneyCount, this);
+                    OnMoneyClaim?.Invoke(-_parOfMoney, this);
+                }
+                if (_targetToMove.GetComponentInParent<GardenBedView>())
+                {
+                    OnMoneyPayForGarden?.Invoke(_parOfMoney, _targetToMove.GetComponentInParent<GardenBedView>());
+                }
+                if (_targetToMove.GetComponentInParent<AviaryView>())
+                {
+                    OnMoneyPayForAviary?.Invoke(_parOfMoney, _targetToMove.GetComponentInParent<AviaryView>());
                 }
             }
         }
 
-        private bool DistanceToTargetCheck()
+        public void PayForGarden(GardenBedView gardenBedView)
         {
-            var distance = Vector3.Distance(transform.position, _targetToMove.transform.position);
-            return !(distance <= 0.5f);
+            OnMoneyPayForGarden?.Invoke(_parOfMoney, gardenBedView);
+        }
+        public void PayForAviary(AviaryView aviaryView)
+        {
+            OnMoneyPayForAviary?.Invoke(_parOfMoney, aviaryView);
         }
         
-        /*public void MoveTo(Transform target)
-        {
-            transform.LookAt(target);
-            transform.Translate((target.position - transform.position)*_moneyMoveSpeed* Time.deltaTime, Space.World);
-        }*/
-
-        public async void MoveToAsync(Transform target)
-        {
-            await MoveTo(target);
-        }
-        
-        private async UniTask MoveTo (Transform target)
-        {
-            transform.LookAt(target.transform);
-            var targetTransform = target.transform;
-            Vector3 newPos = new Vector3(targetTransform.position.x, targetTransform.position.y + targetTransform.lossyScale.y/2, targetTransform.position.z);
-            transform.position = Vector3.Lerp(transform.position, newPos, Time.deltaTime * _moneyMoveSpeed);
-            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, Time.deltaTime * _moneyScaleChangeSpeed);
-            await UniTask.CompletedTask;
-        }
-
         private void OnDestroy()
         {
             isMovable = false;

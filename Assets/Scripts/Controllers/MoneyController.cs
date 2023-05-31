@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 using Interfaces;
 using Tools;
@@ -15,16 +14,18 @@ namespace Controllers
         private List<MoneyView> _currentAvailableMoneyViews = new List<MoneyView>();
         private ObjectPool _objectPool;
         private readonly ListExecuteObject _listExecuteObject;
-        public event Action OnMoneyCountChange;
+        //public event Action OnMoneyCountChange;
         private MoneyHolderView _moneyHolder;
         private PlayerConfig _playerConfig;
         
         private int _playerAmountOfMoney;
         private float _moneyPickupRadius;
-        private bool _isReadyToMoveMoney = true;
+        private bool _isBuying = true;
         private int _counter = 0;
         private readonly ResourcePath _viewPath = new ResourcePath {PathResource = "Prefabs/MoneyView"};
 
+        public event Action<int> OnPlayerMoneyCountChange;
+        
         public MoneyController(PlayerConfig playerConfig, ListExecuteObject listExecuteObject)
         {
             _listExecuteObject = listExecuteObject;
@@ -52,57 +53,57 @@ namespace Controllers
         
         private MoneyView AddMoneyView(Transform posToSpawn)
         {
-            //var moneyView = Object.Instantiate(ResourceLoader.LoadPrefab(_viewPath), posToSpawn, true).GetComponent<MoneyView>();
             var moneyView = _objectPool.Pop().GetComponent<MoneyView>();
             _listExecuteObject.AddExecuteObject(moneyView);
+            moneyView.OnLostTarget += () => _objectPool.Push(moneyView.gameObject);
             _currentAvailableMoneyViews.Add(moneyView);
             moneyView.Init(_playerConfig.parOfMoneyInView,_playerConfig.moneyMoveSpeed, _playerConfig.moneyScaleChangeSpeed);
             moneyView.gameObject.transform.position = posToSpawn.position;
             moneyView.transform.localScale = moneyView.DefaultScale;
-            moneyView.MoneyMoveSpeed = 1f;
-            moneyView.MoneyScaleChangeSpeed = 1f;
+            moneyView.ObjMoveSpeed = 2f;
+            moneyView.ObjScaleChangeSpeed = 2f;
             moneyView.OnMoneyClaim += ChangeMoneyCount;
             return moneyView;
         }
 
-        public async UniTask Test(Transform posToSpawn, Transform posToMove, int buildCost,CancellationToken cts)
+        public void IsBuying(bool status)
         {
+            _isBuying = status;
+        }
+
+        public async void SpendMoney(Transform posToSpawn, Transform posToMove, int buildCost)
+        { 
+            Debug.Log($"Spend Money {_playerAmountOfMoney}");
             if(_playerAmountOfMoney<=0) return;
-            if(_isReadyToMoveMoney)
+            await UniTask.Delay(450);
+            if (!_isBuying)
+                return;
+            Debug.Log(buildCost);
+            for (var i = 0; i < buildCost/10; i++)
             {
-                _isReadyToMoveMoney = false;
-                Debug.Log($"Spend Money {_playerAmountOfMoney}");
-                _playerAmountOfMoney -= _playerConfig.parOfMoneyInView;
+                Debug.Log(_isBuying);
+                if(_playerAmountOfMoney<=0) return;
+                if(!_isBuying)
+                    return;
                 var moneyView = AddMoneyView(posToSpawn);
                 moneyView.isMovable = true;
                 moneyView.TargetToMove = posToMove.gameObject;
-                await UniTask.Delay(1000, cancellationToken: cts);
-                _isReadyToMoveMoney = true;
-                //await UniTask.WaitUntilValueChanged(moneyView, x => !x.isActiveAndEnabled, cancellationToken: cts);
+                await UniTask.Delay(300);
             }
         }
 
-        public void SpendMoney(Transform posToSpawn, Transform posToMove)
-        {
-            if(_playerAmountOfMoney<=0) return;
-            Debug.Log($"Spend Money {_playerAmountOfMoney}");
-            _playerAmountOfMoney -= _playerConfig.parOfMoneyInView;
-            var moneyView = AddMoneyView(posToSpawn);
-            moneyView.isMovable = true;
-            moneyView.TargetToMove = posToMove.gameObject;
-        }
-        
         private void ChangeMoneyCount(int amountOfHandpickedMoney, MoneyView moneyView)
         {
-            Debug.Log($"Длина {_listExecuteObject.Length}");
+            if (_playerAmountOfMoney <= 0 && amountOfHandpickedMoney<0)
+            {
+                _playerAmountOfMoney = 0;
+                return;
+            }
             _playerAmountOfMoney += amountOfHandpickedMoney;
-            //_listExecuteObject.RemoveExecuteObject(moneyView);
             _currentAvailableMoneyViews.Remove(moneyView);
             _objectPool.Push(moneyView.gameObject);
-            Debug.Log($"Change Money: {_playerAmountOfMoney}");
             moneyView.OnMoneyClaim -= ChangeMoneyCount;
-            OnMoneyCountChange?.Invoke();
-            Debug.Log($"{_counter++}");
+            OnPlayerMoneyCountChange?.Invoke(_playerAmountOfMoney);
         }
         
         public void Execute()
@@ -115,11 +116,8 @@ namespace Controllers
             {
                 if ((contactPlayerView.gameObject.transform.position - moneyView.transform.position).magnitude < _moneyPickupRadius)
                 {
-                    //Debug.Log(contactPlayerView.name);
-                    //moneyView.MoveTo(contactPlayerView.transform);
                     moneyView.isMovable = true;
-                    moneyView.TargetToMove = contactPlayerView.gameObject;
-                    //moneyView.MoveToAsync(contactPlayerView.transform);
+                    moneyView.TargetToMove = contactPlayerView.PlaceToPlants[0].gameObject;
                 }
             }
         }

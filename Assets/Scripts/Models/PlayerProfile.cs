@@ -1,6 +1,4 @@
-﻿using Tools;
-
-namespace Models
+﻿namespace Models
 {
     public class PlayerProfile
     {

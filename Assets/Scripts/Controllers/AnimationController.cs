@@ -25,16 +25,6 @@ namespace Controllers
             {
                 _animator.SetFloat(Speed,1f);
             }
-            /*if(_playerRB.velocity.x == 0 && _playerRB.velocity.y ==0)
-                _animator.SetFloat(Speed,0);
-            else if (_playerRB.velocity.x is > 0 and < 2.5f || _playerRB.velocity.y is > 0 and < 2.5f)
-            {
-                _animator.SetFloat(Speed, 0.5f);
-            }
-            else if (_playerRB.velocity.x > 2.5f || _playerRB.velocity.y > 2.5f)
-            {
-                _animator.SetFloat(Speed, 1f);
-            }*/
         }
     }
 }

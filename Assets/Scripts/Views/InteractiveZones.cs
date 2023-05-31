@@ -1,23 +1,11 @@
-﻿using System;
-using Interfaces;
-using Unity.VisualScripting;
+﻿using Interfaces;
 using UnityEngine;
 
 namespace Views
 {
     public abstract class InteractiveZones: InteractiveObject, IInteractable
     {
-        //private bool _isInteractable;
         private PlayerView _contactPlayerTransform;
-        /*protected bool IsInteractable
-        {
-            get { return _isInteractable; }
-            set
-            {
-                _isInteractable = value;
-                GetComponent<Collider>().enabled = _isInteractable;
-            }
-        }*/
 
         protected PlayerView ContactPlayerView => _contactPlayerTransform;
 
@@ -52,14 +40,8 @@ namespace Views
             ExitInteraction();
         }
 
-        //protected abstract void EnterInteraction();
         protected abstract void StayInteraction();
         protected abstract void ExitInteraction();
 
-        /*
-        private void Start()
-        {
-            IsInteractable = true;
-        }*/
     }
 }
